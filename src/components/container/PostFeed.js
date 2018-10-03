@@ -4,11 +4,13 @@ import { Post } from '../presentation';
 
 class PostFeed extends Component {
 
-  renderPost = () => {
-    return <Post />
+  renderPost = ({item}) => {
+    // console.log('renders again???');
+    return <Post item={item} />
   }
 
   keyExtractor = (item, index) => {
+    // console.log('item: ', item);
     return item.toString();
   }
 

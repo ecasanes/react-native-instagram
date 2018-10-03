@@ -8,14 +8,21 @@ class Post extends Component {
     super();
     this.state = {
       screenWidth: 0,
-      liked: false
+      liked: false,
+      image: null
     }
+
   }
 
   componentDidMount() {
+
     this.setState({
       screenWidth: Dimensions.get('window').width
     });
+
+    // initialize functions
+    this.chooseImage();
+
   }
 
   likeImage = () => {
@@ -27,10 +34,37 @@ class Post extends Component {
     });
   }
 
+  chooseImage = () => {
+
+    const macbookImage = 'https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?cs=srgb&dl=computer-desk-electronics-374074.jpg&fm=jpg';
+    const macbookCoffee = require('../../../assets/macbook-coffee.jpg');
+    
+    const macbookOffice1 = require('../../../assets/macbook-office-1.jpg');
+    const macbookOffice2 = require('../../../assets/macbook-office-2.jpg');
+    const macbookPhone = require('../../../assets/macbook-phone.jpg');
+
+    let images = [
+      {uri: macbookImage},
+      macbookCoffee,
+      macbookOffice1,
+      macbookOffice2,
+      macbookPhone
+    ];
+
+    let randomNumber = Math.floor(Math.random() * images.length)
+    let image = images[randomNumber];
+
+    this.setState({ image })
+
+  }
+
   render() {
 
-    const imageHeight = this.state.screenWidth * 1.1;
-    const macbookImage = 'https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg?cs=srgb&dl=computer-desk-electronics-374074.jpg&fm=jpg';
+    const screenWidth = this.state.screenWidth;
+    const imageHeight = screenWidth * 1.1;
+    const image = this.state.image;
+    const liked = this.state.liked;
+    
 
     return (
       <View>
@@ -52,8 +86,8 @@ class Post extends Component {
             activeOpacity={0.9}
             onPress={this.likeImage}>
             <Image 
-              style={{width: this.state.screenWidth, height:imageHeight}}
-              source={{uri: macbookImage}}
+              style={{width: screenWidth, height:imageHeight}}
+              source={image}
               resizeMethod="resize"
             />
           </TouchableOpacity>
@@ -61,7 +95,7 @@ class Post extends Component {
 
           <View style={styles.userActions}>
 
-            <Image style={[styles.userActionImage, {tintColor:this.state.liked?'red':null}]} source={config.images.heartIcon} />
+            <Image style={[styles.userActionImage, {tintColor:liked?'red':null}]} source={config.images.heartIcon} />
             
             <Image style={styles.commentImage}  source={config.images.commentIcon} />
             <Image style={styles.userActionImage} source={config.images.shareIcon} />
@@ -74,14 +108,13 @@ class Post extends Component {
 
           <View style={styles.caption}>
             <Text>
-              <Text style={{fontWeight:'bold'}}>ecasanes</Text>
-              <Text style={{marginLeft:5}}>
-                Oh, just another picture because... why not? Hello World 
-                <Text>#test</Text>
-                another text here...
-              </Text>
-              
+              <Text style={{borderWidth:1,borderColor:'red',fontWeight:'bold'}}>ecasanes </Text> 
+              just another picture because... why not? Hello World 
+              <Text style={{color:'blue'}}>#test</Text>
+              another text here...
             </Text>
+              
+            
           </View>
 
           
@@ -144,9 +177,9 @@ const styles = StyleSheet.create({
   },
   caption: {
     width:'100%',
-    height:150,
     marginHorizontal: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 20,
   }
 });
 
