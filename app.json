@@ -22,6 +22,12 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package":"com.instagram.clone",
+      "versionCode":1,
+      "permissions": [],
+      "icon":"./assets/icon.png"
     }
   }
 }
