@@ -38,7 +38,7 @@ class Post extends Component {
           <View style={styles.userBar}>
 
             <View style={{flexDirection:'row', alignItems: 'center'}}>
-              <Image style={styles.userPic} source={require('../../../assets/macbook-coffee.jpg')}></Image>
+              <Image resizeMethod="resize" style={styles.userPic} source={require('../../../assets/macbook-coffee.jpg')}></Image>
               <Text style={{marginLeft: 10}}>Ernest Oliver Casanes</Text>
             </View>
 
@@ -54,6 +54,7 @@ class Post extends Component {
             <Image 
               style={{width: this.state.screenWidth, height:imageHeight}}
               source={{uri: macbookImage}}
+              resizeMethod="resize"
             />
           </TouchableOpacity>
 
